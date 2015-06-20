@@ -23,7 +23,7 @@ def select_path(base_dir):
     category=""
     result = get_dir_list(base_dir)
     if result:
-    #result.append(config.extra)
+        result.extend(config.extra)
         result = print_result(result)
         try:
             raw = raw_input("select a most probably one: \n")
