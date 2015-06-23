@@ -87,21 +87,25 @@ def category_file(file_path, dest_dir):
             print "failed to create dir"
             raise e
 
+    ln_cmd = "ln -s  '%s/%s' '%s'"% (dest_path, filepath, filepath)
+
     if config.del_after_copy:
         copy_cmd = "mv '%s' %s"% (file_path, dest_path)
         try:
             shutil.move(filepath, dest_path)
+            os.system(ln_cmd)
         except Exception , e:
             print "Error" + str(e)
     else:
         copy_cmd = "cp '%s' %s"% (file_path, dest_path)
-        shutil.copy(filepath, dest_path)
+        try:
+            shutil.copy(filepath, dest_path)
+        except Exception:
+            print "Error"+ str(e)
 
-    ln_cmd = "ln -s  '%s/%s' '%s'"% (dest_path, filepath, filepath)
 
     print copy_cmd
     print ln_cmd
-    os.system(ln_cmd)
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
